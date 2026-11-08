@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#121b38">
+<meta name="description" content="Nyelvtani kaland ötödikeseknek.">
+<title>Bábel tornya · Küldetés az elveszett betűkért</title>
+<style>:root{color-scheme:dark;--bg:#121b38;--panel:#1d284b;--ink:#fff5e2;--sub:#c6cde4;--line:#465578;--gold:#ffcf6b;--mint:#9bf5cf;--pink:#ffb4cf;--violet:#d4baff;--blue:#a9d9ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:1.06rem/1.55 system-ui,-apple-system,sans-serif}
+.backdrop{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 85% 0%,#472c69 0%,transparent 48%),radial-gradient(ellipse at 5% 70%,#164850 0%,transparent 48%),radial-gradient(circle,#8998c33b 1px,transparent 1.4px);background-size:auto,auto,30px 30px}
+.frame{position:relative;max-width:1150px;margin:auto;padding:0 clamp(14px,4vw,48px)}
+.top,footer{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.top{padding:17px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;line-height:1.2}.brand strong{font-size:1.28rem}.brand small{display:block;color:var(--sub);margin-top:4px;font-size:.78rem}
+.logo{width:46px;height:46px;display:grid;place-items:center;border:2px solid #fbe098;border-radius:14px 9px 14px 9px;background:var(--gold);color:#28203b;font:900 1.22rem system-ui;transform:rotate(-6deg);box-shadow:0 4px #a7653c}
+main{min-height:73vh;padding:24px 0 35px;outline:none}
+footer{color:var(--sub);font-size:.79rem;border-top:1px solid var(--line);padding:15px 0 25px}footer span:first-child{letter-spacing:.16em;font-weight:800}
+h1,h2,h3,p{margin:0 0 .65em}h1,h2,h3{line-height:1.12}h1{font-size:clamp(2rem,5vw,3.7rem);letter-spacing:-.045em}h2{font-size:clamp(1.5rem,3.4vw,2.35rem);letter-spacing:-.025em}h3{font-size:1.18rem}p:last-child{margin-bottom:0}
+.eyebrow{font-size:.78rem;font-weight:850;letter-spacing:.15em;color:var(--mint);text-transform:uppercase}
+.hero{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1.15fr 1fr;align-items:center;padding:clamp(22px,4vw,45px);min-height:310px;background:linear-gradient(115deg,#203658,#272453 72%,#38295f);border:1px solid #65628f;border-radius:26px;box-shadow:0 14px 40px #0b102d66}
+.hero p:not(.eyebrow){max-width:42ch;color:#e0e5fa}.hero h1 span{color:var(--gold);display:block}.hero-art{width:100%;max-height:270px;filter:drop-shadow(0 14px 12px #09091f66)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:19px;align-items:center}
+button,.button{font:inherit;font-weight:760;cursor:pointer;min-height:46px;padding:.55rem .94rem;border-radius:12px;border:1px solid #647399;color:var(--ink);background:#303f66;text-decoration:none;display:inline-flex;justify-content:center;align-items:center;gap:.4em}
+button:hover,.button:hover{filter:brightness(1.16)}button:active{transform:translateY(1px)}button:disabled{opacity:.52;cursor:default;transform:none;filter:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #fff0a6;outline-offset:4px}
+.primary{background:var(--gold);border-color:var(--gold);color:#2c2236}.ghost{background:#1a2747;border-color:#526286}
+.mode-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:17px 0 24px}
+.mode{display:flex;flex-direction:column;align-items:start;gap:6px;padding:16px;text-align:left;background:#202d51}
+.mode strong{font-size:1.07rem}.mode small{font-size:.89rem;color:var(--sub);font-weight:500}.mode .stamp{width:40px;height:39px;font-size:1.25rem}
+.stamp{display:grid;place-items:center;background:var(--accent,var(--mint));color:#222443;width:50px;height:50px;border-radius:14px 9px 14px 9px;font-size:1.54rem;font-weight:900;box-shadow:0 4px #090f2e55}
+.gold{--accent:var(--gold)}.mint{--accent:var(--mint)}.pink{--accent:var(--pink)}.violet{--accent:var(--violet)}.blue{--accent:var(--blue)}
+.map{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:18px}
+.map:before{content:"";position:absolute;left:8%;right:8%;top:34px;border-top:2px dashed #9bcce58a}
+.tile{position:relative;text-align:left;min-height:131px;padding:12px 13px;border:1px solid var(--line);background:#202c4d;border-radius:15px;color:var(--ink)}
+button.tile{display:block;width:100%}
+.tile strong,.tile small{display:block}.tile strong{margin-top:8px;font-size:.97rem}.tile small{color:var(--sub);font-size:.78rem;line-height:1.4}
+.panel{max-width:795px;margin:0 auto;padding:clamp(16px,4vw,32px);background:#1d284c;border:1px solid #59678d;border-radius:23px;box-shadow:0 16px 45px #0c142b75}
+.panel.wide{max-width:100%}.panelhead{display:flex;gap:14px;align-items:center;margin-bottom:16px}.panelhead h1,.panelhead h2,.panelhead p{margin:0 0 .2em}.subtle{color:var(--sub)}
+label{display:block;font-weight:750;margin:13px 0}.field{display:block;margin-top:5px;width:100%;min-height:48px;background:#111e3b;border:1px solid #65769f;border-radius:10px;color:var(--ink);font:inherit;padding:9px 12px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 13px}
+.notice,.hint,.feedback,.challenge{padding:12px 14px;border-radius:12px;margin-top:13px;border:1px solid #657599;background:#293757}
+.good{color:#b8fadb;border-color:#75b5a7}.wrong{color:#ffd7bf;border-color:#d38c77}
+.status{margin-top:10px}.status:empty{display:none}
+.progress-row{display:flex;align-items:center;justify-content:space-between;gap:9px;color:var(--sub);font-size:.9rem;font-weight:750}
+progress{width:100%;height:10px;accent-color:var(--mint);margin-bottom:13px}
+.scores{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.chip{border:1px solid #586789;border-radius:20px;padding:4px 10px;color:#d8e1ff;font-size:.85rem}.chip.active{background:#b8f5d8;color:#132a34;border-color:#b8f5d8;font-weight:800}
+.options,.pool,.ordered{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.options{flex-direction:column}
+.option{justify-content:flex-start;text-align:left}.option[aria-pressed=true]{background:#c6b6ff;color:#221841;border-color:#fff4ff}.ordered{min-height:64px;align-items:center;padding:9px;background:#101a38;border:1px dashed #8494b8;border-radius:11px}.ordered button{background:#3a5973}
+.legend{font-size:.9rem;color:var(--sub)}
+summary{cursor:pointer;font-weight:750;color:var(--gold);padding:5px 0}
+.alphabet{display:flex;flex-wrap:wrap;gap:4px;padding:5px 0}.alphabet span{min-width:28px;text-align:center;background:#37486d;border-radius:5px;padding:3px 5px}.alphabet span.long{color:#ffe0a1;font-weight:850}
+.trophy{font-size:clamp(2.3rem,8vw,5rem);line-height:1;color:var(--gold);letter-spacing:.09em;text-shadow:0 5px #86522c;margin-bottom:16px}
+.review{padding-left:1.45rem}.review li{margin:8px 0}.review li strong{color:var(--mint)}
+@media(max-width:740px){.hero{grid-template-columns:1fr .7fr;min-height:0}.map{grid-template-columns:repeat(2,minmax(0,1fr))}.map:before{display:none}.tile{min-height:110px}}
+@media(max-width:490px){.hero{grid-template-columns:1fr}.hero-art{max-height:147px}.mode-row,.fields{grid-template-columns:1fr}.mode{min-height:0;display:grid;grid-template-columns:auto 1fr}.mode .stamp{grid-row:1/3}.mode small{grid-column:2}.map{gap:8px}.tile{padding:9px}main{padding-top:15px}.panelhead{align-items:start}footer{font-size:.69rem}}
+@media(prefers-reduced-motion:no-preference){.hero-art .float{animation:float 4s ease-in-out infinite alternate}@keyframes float{to{transform:translateY(-7px)}}}
+
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+<div class="frame">
+<header class="top"><div class="brand"><span class="logo" aria-hidden="true">B</span><div><strong>Bábel tornya</strong><small>Magyar nyelv · 5. osztály</small></div></div><button id="home" class="ghost" type="button">⌂ &nbsp; Kezdőlap</button></header>
+<main id="screen" tabindex="-1"></main>
+<footer><span>BÁBEL TORNYA</span><span>Felfedezés · gyakorlás · magyar nyelv</span></footer>
+</div>
+<script>
+'use strict';
+const DATA = {"mode":"public","topics":[{"id":"ev-eleje","title":"A jelektől a magyar ábécéig","version":1,"stages":[{"id":"jelek","title":"Jelzőtorony","symbol":"✦","color":"gold","description":"Tanulási lépések és jelek","mission":"Találjatok ki egy néma jelet arra, hogy szünetet kértek!","questions":[{"type":"order","prompt":"Rakd sorba a tanulás három lépését!","options":["Megnézem.","Elmondom a saját szavaimmal.","Gyakorlom."],"answer":["Megnézem.","Elmondom a saját szavaimmal.","Gyakorlom."],"hint":"Először nézd meg a példát, aztán mondd el a lényeget."},{"type":"choice","prompt":"Melyik ember alkotta jel?","options":["A zebránál álló közlekedési tábla.","A sötét felhő."],"answer":"A zebránál álló közlekedési tábla.","hint":"Gondolj arra, melyiket készítették és tették ki az út mellé."},{"type":"choice","prompt":"Mit jelezhet a sötét felhő?","options":["Hamarosan eshet.","Bezárt a könyvtár.","Szabad átkelni."],"answer":"Hamarosan eshet.","hint":"Az égre nézel. Milyen idő közeleghet?"},{"type":"multi","prompt":"Melyik két jel üzenhet szavak nélkül?","options":["Felemelem a kezem.","Megszólal az iskolacsengő.","Azt mondom: „Várj!”","Leírom: „Köszönöm!”"],"answer":["Felemelem a kezem.","Megszólal az iskolacsengő."]}]},{"id":"uzenet","title":"Üzenetbarlang","symbol":"◉","color":"violet","description":"Üzenetküldő, címzett és testbeszéd","mission":"Játsszatok el egy érzést csak arccal! A többiek találják ki.","questions":[{"type":"choice","prompt":"Zsófi azt mondja Bálintnak: „Várj meg a kapunál!” Ki az üzenet küldője?","options":["Zsófi","Bálint","A kapu"],"answer":"Zsófi","hint":"Az küldi az üzenetet, aki megszólal."},{"type":"choice","prompt":"Misi ezt írja Lilinek: „Hozd el a füzetet!” Ki a címzett?","options":["Lili","Misi","A füzet"],"answer":"Lili","hint":"A címzett az, akinek szól az üzenet."},{"type":"choice","prompt":"Melyik mozdulattal jelezhetsz igent szó nélkül?","options":["Bólintással.","Fejrázással.","Vállvonással."],"answer":"Bólintással.","hint":"Gondolj arra, hogyan mozog a fejed, amikor helyeselsz."},{"type":"choice","prompt":"„Kérlek, segíts megkeresni a kulcsot!” Mi az üzenet célja?","options":["Segítséget kérni.","Elköszönni.","Bemutatkozni."],"answer":"Segítséget kérni.","hint":"Mit szeretne a beszélő a másik embertől?"}]},{"id":"kapcsolat","title":"Kapcsolatok hídja","symbol":"➜","color":"mint","description":"Köszönés, figyelem, telefon és írás","mission":"Ketten játsszatok el egy rövid telefonhívást, amelyben megkérdezitek a könyvtár nyitvatartását!","questions":[{"type":"choice","prompt":"Új osztálytársnak mutatkozol be. Melyik illik ide?","options":["Szia! Nóra vagyok.","Jó étvágyat!","Viszlát holnap!"],"answer":"Szia! Nóra vagyok.","hint":"Köszönj, majd mondd meg a neved!"},{"type":"choice","prompt":"A könyvtárat keresed. Hogyan kérsz udvariasan útbaigazítást?","options":["Elnézést, meg tudná mondani, merre van a könyvtár?","Hol van? Mondja már!","Köszönöm, megtaláltam."],"answer":"Elnézést, meg tudná mondani, merre van a könyvtár?","hint":"Az udvarias kéréshez illik az „Elnézést”."},{"type":"order","prompt":"Rakd sorba a telefonbeszélgetés részeit!","options":["Köszönök.","Bemutatkozom.","Elmondom, miért telefonálok.","Elköszönök."],"answer":["Köszönök.","Bemutatkozom.","Elmondom, miért telefonálok.","Elköszönök."],"hint":"A hívást köszönéssel nyitjuk és elköszönéssel zárjuk."},{"type":"choice","prompt":"Társaid már hazamentek. Melyik lehet írásbeli üzenet nekik?","options":["Az osztály üzenőfalára írom: „Holnap hozzatok ollót!”","A teremben felkiáltok: „Holnap ollót hozzatok!”","A kapuban integetek."],"answer":"Az osztály üzenőfalára írom: „Holnap hozzatok ollót!”","hint":"Azt keresd, ami leírva is eljut hozzájuk."}]},{"id":"mondat","title":"Írásjelműhely","symbol":"!","color":"pink","description":"Nagy kezdőbetű és mondatvégi írásjelek","mission":"Mondjátok ki ugyanazt a két szót kérdésként és felkiáltásként. Mi változott?","questions":[{"type":"choice","prompt":"Melyik mondatot írtuk le helyesen?","options":["A táska a pad alatt van.","a táska a pad alatt van.","A táska a pad alatt van"],"answer":"A táska a pad alatt van.","hint":"Ellenőrizd az első betűt és a mondat végét!"},{"type":"choice","prompt":"Melyik írásjel hiányzik? „Mikor indul a busz…”","options":["?",".","!"],"answer":"?","hint":"A mondat kérdez."},{"type":"choice","prompt":"Rádőlne egy szék a társadra. Melyik mondat illik a helyzethez?","options":["Vigyázz!","Vigyázz?","Vigyázz."],"answer":"Vigyázz!","hint":"Hirtelen és nyomatékosan figyelmeztetsz."},{"type":"multi","prompt":"Melyik két mondat kérdez?","options":["Hová tetted a ceruzát?","Eljössz velem?","Tedd a polcra!","Kint esik az eső."],"answer":["Hová tetted a ceruzát?","Eljössz velem?"]}]},{"id":"abece","title":"Ábécé kincstára","symbol":"Á","color":"blue","description":"A teljes magyar ábécé és a betűrend","mission":"Mondjatok négy állatnevet különböző kezdőbetűvel, majd rendezzétek őket betűrendbe!","questions":[{"type":"order","prompt":"Rakd betűrendbe a szavakat!","options":["alma","béka","cica","csiga"],"answer":["alma","béka","cica","csiga"],"hint":"A c előbb van, mint a cs. A cs egy betű."},{"type":"choice","prompt":"Melyik betű áll közvetlenül a magyar ábécében a d után?","options":["dz","dzs","e"],"answer":"dz","hint":"Ezt a négyet keresd a súgóban: d, dz, dzs, e."},{"type":"order","prompt":"Mindegyik szó k-val kezdődik. Rakd őket betűrendbe!","options":["kalap","kefe","kifli","kupa"],"answer":["kalap","kefe","kifli","kupa"],"hint":"A második betűk döntenek: a, e, i, u."},{"type":"order","prompt":"Figyelj: az s és az sz két külön betű. Rakd betűrendbe!","options":["sál","szék","toll","tyúk","vas"],"answer":["sál","szék","toll","tyúk","vas"],"hint":"A sorrend a magyar ábécében: s, sz, t, ty, u … v."},{"type":"order","prompt":"Rakd betűrendbe ezeket a betűket!","options":["c","cs","d","dz","dzs","e"],"answer":["c","cs","d","dz","dzs","e"],"hint":"Nézd meg, hol áll a két- és háromjegyű betű a magyar ábécében!"},{"type":"choice","prompt":"Melyik szó áll előbb betűrendben?","options":["tál","tálca","tálca és tál egy helyen áll"],"answer":"tál","hint":"Ha az egyik szó teljesen megegyezik a másik elejével, a rövidebb kerül előre."},{"type":"choice","prompt":"A magyar ábécében melyik az egyetlen háromjegyű betű?","options":["dzs","dz","sz"],"answer":"dzs","hint":"Számold meg, hány írásjegyből áll a betű!"},{"type":"order","prompt":"Rakd sorrendbe az ábécé utolsó részének betűit!","options":["v","w","x","y","z","zs"],"answer":["v","w","x","y","z","zs"],"hint":"A z előbb áll, mint a zs."}]}]}],"examUrl":""};
+</script>
+<script>'use strict';
+
+const screen = document.querySelector('#screen');
+const home = document.querySelector('#home');
+const alphabet = 'a á b c cs d dz dzs e é f g gy h i í j k l ly m n ny o ó ö ő p q r s sz t ty u ú ü ű v w x y z zs'.split(' ');
+const variants = ['SNI', 'BTMN', 'Normál'];
+const color = ['gold', 'mint', 'pink', 'violet', 'blue'];
+const escapeMap = {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'};
+const esc = value => String(value).replace(/[&<>"']/g, char => escapeMap[char]);
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const fromIndex = (q, value) => Array.isArray(value) ? value.map(i => q.options[i]) : q.options[value];
+const correct = (q, value) => {
+  const selected = fromIndex(q, value);
+  if (q.type === 'multi') return selected.length === q.answer.length && q.answer.every(item => selected.includes(item));
+  return same(q.answer, selected);
+};
+const taskLabel = {choice:'Válassz egyet!', multi:'Jelöld meg az összes helyes választ!', order:'Koppints a kártyákra a helyes sorrendben!'};
+
+const art = `<svg class="hero-art" aria-hidden="true" viewBox="0 0 440 265" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="land" x2=".9" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#527793"/><stop offset="1" stop-color="#283759"/></linearGradient><linearGradient id="arch"><stop stop-color="#f5ac77"/><stop offset="1" stop-color="#ffe59d"/></linearGradient></defs>
+<circle cx="315" cy="76" r="51" fill="#c79feb" opacity=".24"/><circle cx="315" cy="76" r="36" fill="#edd5ff" opacity=".77"/>
+<path d="M18 205 98 104l43 55 54-87 99 131Z" fill="#393e74"/><path d="m28 218 71-72 25 27 70-76 73 108 61-64 82 78Z" fill="#516189"/>
+<path d="m13 220 61-27 52 9 59-25 58 23 59-13 55 20 70 20-27 19-354 0Z" fill="url(#land)" stroke="#788eb0" stroke-width="2"/>
+<path d="M105 226q56-26 104-7t95-17" fill="none" stroke="#f5cd88" stroke-width="3" stroke-dasharray="5 7" stroke-linecap="round"/>
+<path d="M186 220v-67a36 36 0 0 1 72 0v67Z" fill="#1f254f" stroke="url(#arch)" stroke-width="9"/>
+<path d="M196 217v-63a26 26 0 0 1 52 0v63Z" fill="#46376f" stroke="#c794f6" stroke-width="2"/>
+<path d="m222 150 4 16 13 4-13 4-4 15-4-15-13-4 13-4Z" fill="#ffe898"/>
+<g class="float" fill="#f9e09c" stroke="#ac6e50" stroke-width="2"><rect x="57" y="69" width="52" height="47" rx="11" transform="rotate(-12 83 92)"/><rect x="291" y="116" width="56" height="48" rx="11" transform="rotate(12 320 140)"/><rect x="342" y="157" width="57" height="45" rx="10" fill="#b6f6d6" transform="rotate(-9 371 179)"/></g>
+<g class="float" fill="#332845" font-size="23" font-family="system-ui,sans-serif" font-weight="900" text-anchor="middle"><text x="83" y="100" transform="rotate(-12 83 92)">Á</text><text x="319" y="148" transform="rotate(12 320 140)">CS</text><text x="371" y="186" transform="rotate(-9 371 179)">DZS</text></g>
+<g fill="#ffe498"><path d="m128 47 3 9 9 3-9 3-3 9-3-9-9-3 9-3Z"/><path d="m377 56 3 9 9 3-9 3-3 9-3-9-9-3 9-3Z"/><circle cx="163" cy="53" r="2"/><circle cx="256" cy="87" r="3"/><circle cx="67" cy="134" r="3"/><circle cx="271" cy="45" r="2"/><circle cx="407" cy="119" r="2"/></g></svg>`;
+
+let page = 'home';
+let topicIndex = 0;
+let game;
+let exam;
+let pending = false;
+
+function show(name, html) {
+  page = name;
+  screen.innerHTML = html;
+  home.hidden = name === 'home' || (DATA.mode === 'live' && name === 'entry');
+  screen.focus();
+}
+
+function topicSelect() {
+  if (DATA.topics.length < 2) return '';
+  return `<label>Tananyag<select id="topic" class="field">${DATA.topics.map((t,i) =>
+    `<option value="${i}" ${i === topicIndex ? 'selected' : ''}>${esc(t.title)}</option>`).join('')}</select></label>`;
+}
+
+function stamp(symbol, accent) {
+  return `<span class="stamp ${accent}" aria-hidden="true">${esc(symbol)}</span>`;
+}
+
+function homeView() {
+  game = undefined;
+  exam = undefined;
+  if (DATA.mode === 'live') return entry();
+  const topic = DATA.topics[topicIndex];
+  const examButton = DATA.mode === 'preview'
+    ? '<button class="mode pink" data-action="exam-demo">' + stamp('✎', 'pink') + '<strong>Dolgozatmód · próba</strong><small>Nézd meg a három egyéni változatot.</small></button>'
+    : DATA.examUrl
+      ? `<a class="button mode pink" href="${esc(DATA.examUrl)}" target="_blank" rel="noopener">${stamp('✎','pink')}<strong>Egyéni dolgozat</strong><small>A tanártól kapott kóddal indítható.</small></a>`
+      : `<div class="button mode pink">${stamp('✎','pink')}<strong>Egyéni dolgozat</strong><small>A tanár ad hozzá külön linket.</small></div>`;
+  show('home', `<section class="hero"><div><p class="eyebrow">✦ &nbsp; Küldetés 05</p>
+    <h1>Küldetés az <span>elveszett betűkért</span></h1>
+    <p>A kincstár kapuja bezárult. Fejtsd meg a jeleket, állítsd helyre az üzeneteket, és gyűjts pecséteket az állomásokon!</p>
+    <div class="actions"><button class="primary" data-action="solo">Játék indítása →</button></div></div>${art}</section>
+    <div class="mode-row">
+    <button class="mode" data-action="solo">${stamp('✦','gold')}<strong>Egyéni játék</strong><small>Saját tempó, súgó és azonnali visszajelzés.</small></button>
+    <button class="mode" data-action="teams">${stamp('⚑','mint')}<strong>Csapatjáték</strong><small>2–4 csapat, váltott körök, közös képernyő.</small></button>
+    ${examButton}</div>
+    ${topicSelect()}<p class="eyebrow">Küldetéstérkép</p><h2>${esc(topic.title)}</h2>${tiles(topic, false)}`);
+}
+
+function tiles(topic, clickable) {
+  return '<div class="map">' + topic.stages.map((s,i) => {
+    const tag = clickable ? 'button' : 'div';
+    return `<${tag} class="tile" ${clickable ? `data-action="stage" data-i="${i}"` : ''}>
+      ${stamp(s.symbol,s.color)}<strong>${i + 1}. ${esc(s.title)}${game?.passed.has(i) ? ' ✓' : ''}</strong><small>${esc(s.description)}</small></${tag}>`;
+  }).join('') + '</div>';
+}
+
+function selectStage() {
+  const title = game.teamNames.length ? 'Csapatküldetés' : 'A saját küldetésed';
+  show('map', `<section class="panel wide"><p class="eyebrow">${game.passed.size} / ${game.topic.stages.length} pecsét</p><h1>${title}</h1>
+  <p class="subtle">Válassz állomást! Az állomás akkor ad pecsétet, ha a válaszaid legalább fele elsőre helyes.</p>
+  ${scores()}${standings()}${tiles(game.topic, true)}${game.passed.size === game.topic.stages.length
+    ? '<div class="notice good"><strong>✦ A kincstár megnyílt! Minden pecsét a helyére került.</strong></div>' : ''}</section>`);
+}
+
+function teamSetup() {
+  show('team-setup', `<section class="panel"><p class="eyebrow">Csapatjáték</p><h1>Kik indulnak?</h1>
+    <p class="subtle">Két, három vagy négy csapat játszhat egy készüléken. Minden kérdés után a következő csapat jön. Elsőre helyes válaszért 1 pont jár.</p>
+    <form id="team-form"><div class="fields">${Array.from({length:4},(_,i) => `<label>${i + 1}. csapat neve
+    <input class="field" name="team" maxlength="28" ${i < 2 ? `value="${['Baglyok','Rókák'][i]}" required` : 'placeholder="Opcionális"'}></label>`).join('')}</div>
+    <div class="actions"><button class="primary">Indulhat a csapatjáték →</button></div></form></section>`);
+}
+
+function beginGame(teamNames) {
+  game = {topic:DATA.topics[topicIndex], teamNames, points:teamNames.map(() => 0), passed:new Set(), played:new Set(), turn:0};
+  selectStage();
+}
+
+function scores() {
+  if (!game.teamNames.length) return '';
+  return '<div class="scores">' + game.teamNames.map((name,i) =>
+    `<span class="chip ${game.turn === i ? 'active' : ''}">${esc(name)} · ${game.points[i]} pont</span>`).join('') + '</div>';
+}
+
+function standings() {
+  if (!game.teamNames.length || game.played.size !== game.topic.stages.length) return '';
+  const max = Math.max(...game.points);
+  const leaders = game.teamNames.filter((_,i) => game.points[i] === max).map(esc);
+  return `<p class="notice good"><strong>${leaders.length === 1 ? 'Győztes' : 'Holtverseny az élen'} · ${leaders.join(', ')} · ${max} pont</strong></p>`;
+}
+
+function shuffle(values) {
+  const shuffled = [...values];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i],shuffled[j]] = [shuffled[j],shuffled[i]];
+  }
+  return shuffled;
+}
+
+function prepare(q) {
+  const indexes = q.options.map((_,i) => i);
+  const display = shuffle(indexes);
+  if (q.type === 'order' && q.answer && same(display, q.answer.map(value => q.options.indexOf(value)))) {
+    display.push(display.shift());
+  }
+  return {...q, display};
+}
+
+function startStage(i) {
+  const stage = game.topic.stages[i];
+  game.stage = stage;
+  game.stageIndex = i;
+  game.startTurn = game.turn;
+  game.items = stage.questions.map(prepare);
+  game.i = 0;
+  game.hits = 0;
+  game.mark = null;
+  game.answer = null;
+  renderPractice();
+}
+
+function alphabetHelp() {
+  return '<details class="hint"><summary>Magyar ábécé · 44 betű</summary><div class="alphabet">' +
+    alphabet.map(letter => `<span class="${letter.length > 1 ? 'long' : ''}">${letter}</span>`).join('') +
+    '</div><p class="legend">Kiemelve a két- és háromjegyű betűk.</p></details>';
+}
+
+function renderPractice() {
+  const {stage,i,items,mark,stageIndex,teamNames,turn} = game;
+  const q = items[i];
+  const team = teamNames.length ? `<p class="notice"><strong>Most ${esc(teamNames[turn])} csapata következik.</strong> Beszéljétek meg, majd egy játékos jelölje a választ! ${game.played.has(stageIndex) ? 'Ez a kör gyakorlásra szolgál.' : ''}</p>` : '';
+  show('practice', `<section class="panel">
+    <div class="panelhead">${stamp(stage.symbol,stage.color)}<div><p class="eyebrow">Gyakorlás</p><h2>${esc(stage.title)}</h2></div></div>
+    ${scores()}${team}${progress(i,items.length)}${task(q)}
+    ${q.hint ? `<details class="hint"><summary>Kérek egy tippet</summary><p>${esc(q.hint)}</p></details>` : ''}
+    ${stage.id === 'abece' ? alphabetHelp() : ''}
+    ${mark === null ? '' : `<p class="feedback ${mark ? 'good' : 'wrong'}" role="status"><strong>${mark ? '✓ Helyes!' : 'Nézd meg a helyes választ!'}</strong> ${esc(Array.isArray(q.answer) ? q.answer.join(' · ') : q.answer)}</p>`}
+    <div class="actions">${teamNames.length ? '' : '<button data-action="map" class="ghost">← Térkép</button>'}
+    ${mark === null ? '<button class="primary" data-action="check" id="check">Ellenőrzés</button>' : '<button class="primary" data-action="practice-next">Tovább →</button>'}</div>
+    </section>`);
+  updateOptions(q, game.answer, mark !== null);
+}
+
+function progress(i,total) {
+  return `<div class="progress-row"><span>${i + 1}. feladat</span><span>${i + 1} / ${total}</span></div><progress value="${i + 1}" max="${total}" aria-label="Haladás"></progress>`;
+}
+
+function task(q) {
+  return `<div class="question"><p class="legend">${taskLabel[q.type]}</p><h3 id="prompt">${esc(q.prompt)}</h3>
+  <div id="answer-area" role="group" aria-labelledby="prompt"></div></div>`;
+}
+
+function updateOptions(q, value, locked) {
+  const area = document.querySelector('#answer-area');
+  const chosen = value === null ? [] : Array.isArray(value) ? value : [value];
+  const focused = area.contains(document.activeElement) ? document.activeElement.dataset : null;
+  const make = (i, action) => `<button type="button" class="option" data-action="${action}" data-i="${i}"
+    ${q.type !== 'order' ? `aria-pressed="${chosen.includes(i)}"` : ''}
+    ${locked ? 'disabled' : ''}>${esc(q.options[i])}</button>`;
+  if (q.type === 'order') {
+    area.innerHTML = `<div class="ordered" aria-label="Kirakott sorrend">
+      ${chosen.length ? chosen.map(i => make(i,'remove')).join('') : '<span class="legend">Itt jelenik meg a sorrended.</span>'}
+      </div><div class="pool" aria-label="Választható kártyák">${q.display.filter(i => !chosen.includes(i)).map(i => make(i,'pick')).join('')}</div>
+      ${chosen.length && !locked ? '<button type="button" class="ghost" data-action="reset">Sorrend törlése</button>' : ''}
+      <p class="legend">A kirakott kártyára koppintva visszateheted.</p>`;
+  } else {
+    area.innerHTML = `<div class="options">${q.display.map(i => make(i,'pick')).join('')}</div>`;
+  }
+  const check = document.querySelector('#check');
+  if (check) check.disabled = !complete(q,value);
+  if (focused) {
+    const restored = [...area.querySelectorAll('button')].find(el =>
+      el.dataset.action === focused.action && el.dataset.i === focused.i);
+    (restored || area.querySelector('.pool button') || check || document.querySelector('#exam-forward') || area.querySelector('button'))?.focus();
+  }
+}
+
+function complete(q,value) {
+  if (q.type === 'choice') return Number.isInteger(value);
+  if (q.type === 'multi') return Boolean(value?.length);
+  return value?.length === q.options.length;
+}
+
+function change(q,value,action,i) {
+  if (action === 'reset') return null;
+  if (q.type === 'choice') return i;
+  const values = value || [];
+  if (action === 'remove' || values.includes(i)) return values.filter(item => item !== i);
+  return [...values,i];
+}
+
+function finishStage() {
+  if (game.hits * 2 >= game.items.length) game.passed.add(game.stageIndex);
+  if (game.played.has(game.stageIndex)) game.turn = game.startTurn;
+  game.played.add(game.stageIndex);
+  const awarded = game.passed.has(game.stageIndex);
+  show('stage-result', `<section class="panel"><p class="trophy" aria-hidden="true">${awarded ? '✦ ✧ ✦' : '✧'}</p>
+  <h1>${awarded ? 'Pecsét a helyén!' : 'Az állomást végigjártad!'}</h1><p>${game.hits} / ${game.items.length} helyes válasz ebben a körben.</p>
+  ${scores()}${game.teamNames.length ? `<p class="challenge"><strong>Élő csapatpróba</strong><br>${esc(game.stage.mission)}</p>` : ''}
+  <div class="actions"><button class="primary" data-action="map">Vissza a térképre →</button></div></section>`);
+}
+
+function entry() {
+  const live = DATA.mode === 'live';
+  show('entry', `<section class="panel"><p class="eyebrow">Egyéni dolgozat</p>
+    <h1>${live ? 'Készen állsz?' : 'Dolgozatpróba'}</h1>
+    <p class="subtle">${live ? 'Önállóan dolgozz! Visszaléphetsz a kérdésekhez. A beküldés után rögtön látod a pontszámodat.' :
+      'Tanári kipróbálás. Itt név nélkül nézheted meg a változatokat és a pontozást.'}</p>
+    <form id="exam-entry">${live ? `<div class="fields">
+    <label>Név<input class="field" name="name" maxlength="80" autocomplete="off" required></label>
+    <label>Osztály<input class="field" name="className" maxlength="20" placeholder="5. a" autocomplete="off" required></label>
+    </div><label>Dolgozatkód<input class="field" name="code" maxlength="32" autocomplete="off" spellcheck="false" required></label>` :
+    `<label>Változat<select class="field" name="variant">${variants.map(v => `<option>${v}</option>`).join('')}</select></label>`}
+    ${topicSelect()}<div class="actions"><button class="primary" id="entry-submit">Indulhat a dolgozat →</button></div>
+    <p class="status" id="exam-status" role="status"></p></form></section>`);
+}
+
+function remote(method,payload) {
+  return new Promise((resolve,reject) => {
+    google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[method](payload);
+  });
+}
+
+async function beginExam(form) {
+  if (pending) return;
+  const live = DATA.mode === 'live';
+  const fields = Object.fromEntries(new FormData(form));
+  const topic = DATA.topics[topicIndex];
+  let questions;
+  let attempt;
+  if (live) {
+    const status = document.querySelector('#exam-status');
+    fields.name = fields.name.trim();
+    fields.className = fields.className.trim();
+    if (!fields.name || !fields.className || /[\x00-\x1f\x7f]/.test(fields.name + fields.className)) {
+      status.textContent = 'Írd be a nevedet és az osztályodat!';
+      return;
+    }
+    pending = true;
+    document.querySelector('#entry-submit').disabled = true;
+    status.textContent = 'A dolgozat betöltése…';
+    try {
+      const result = await remote('openExam',{topicId:topic.id,code:fields.code});
+      questions = result.questions;
+      attempt = result.attempt;
+    } catch (error) {
+      status.textContent = 'Nem sikerült megnyitni a dolgozatot. Ellenőrizd a kódot, majd próbáld újra!';
+      document.querySelector('#entry-submit').disabled = false;
+      return;
+    } finally {
+      pending = false;
+    }
+  } else {
+    questions = topic.exams[fields.variant];
+  }
+  exam = {topic, fields, attempt, items:questions.map(prepare), answers:questions.map(() => null), i:0};
+  renderExam();
+}
+
+function renderExam() {
+  const {items,answers,i,topic} = exam;
+  show('exam', `<section class="panel"><p class="eyebrow">Egyéni dolgozat</p>
+  <h2>${esc(topic.title)}</h2>${progress(i,items.length)}${task(items[i])}
+  <div class="actions">
+    <button data-action="exam-prev" class="ghost" ${i === 0 ? 'disabled' : ''}>← Előző</button>
+    <button id="exam-forward" data-action="exam-next" class="primary">${i === items.length - 1 ? 'Átnézés →' : 'Következő →'}</button>
+  </div></section>`);
+  updateOptions(items[i], answers[i], false);
+}
+
+function reviewExam() {
+  const missing = exam.answers.filter((v,i) => !complete(exam.items[i],v)).length;
+  show('review', `<section class="panel"><p class="eyebrow">Egyéni dolgozat</p><h1>Átnézés és beküldés</h1>
+    <p>${missing ? `${missing} feladathoz még nincs teljes válasz. Visszaléphetsz hozzájuk, vagy így is beküldheted.` : 'Minden kérdésre válaszoltál.'}</p>
+    <div class="pool">${exam.items.map((q,i) => `<button class="${complete(q,exam.answers[i]) ? 'ghost' : 'primary'}"
+    data-action="exam-goto" data-i="${i}" aria-label="${i + 1}. feladat, ${complete(q,exam.answers[i]) ? 'megválaszolva' : 'hiányos'}">${i + 1} ${complete(q,exam.answers[i]) ? '✓' : '·'}</button>`).join('')}</div>
+    <div class="actions"><button class="primary" id="send" data-action="send">Dolgozat beküldése</button></div>
+    <p id="exam-status" role="status" class="status"></p></section>`);
+}
+
+async function sendExam() {
+  if (pending) return;
+  let result;
+  const live = DATA.mode === 'live';
+  if (live) {
+    const status = document.querySelector('#exam-status');
+    pending = true;
+    document.querySelector('#send').disabled = true;
+    status.textContent = 'Várj, amíg a mentés visszaigazolása megérkezik…';
+    try {
+      result = await remote('saveExam',{attempt:exam.attempt,name:exam.fields.name,className:exam.fields.className,answers:exam.answers});
+    } catch (error) {
+      status.textContent = 'A mentést nem sikerült visszaigazolni. A válaszok még itt vannak. Próbáld újra!';
+      document.querySelector('#send').disabled = false;
+      return;
+    } finally {
+      pending = false;
+    }
+  } else {
+    const flags = exam.items.map((q,i) => complete(q,exam.answers[i]) && correct(q,exam.answers[i]));
+    result = {score:flags.filter(Boolean).length,total:flags.length,flags};
+  }
+  const percent = Math.round(result.score / result.total * 100);
+  show('exam-result', `<section class="panel"><p class="eyebrow">Egyéni dolgozat</p><h1>${live ? 'A dolgozat megérkezett' : 'A próba véget ért'}</h1>
+  <p class="trophy">${result.score} / ${result.total}</p><p><strong>${percent}%</strong></p>
+  <details class="notice"><summary>Feladatonkénti visszajelzés</summary><ol class="review">${exam.items.map((q,i) =>
+    `<li>${esc(q.prompt)}<br><strong>${result.flags[i] ? '✓ 1 pont' : '· 0 pont'}</strong></li>`).join('')}</ol></details>
+  <div class="actions"><button class="primary" data-action="home">Befejezés</button></div></section>`);
+  exam = undefined;
+}
+
+home.addEventListener('click', () => {
+  if (pending) return;
+  if (exam && !window.confirm('Kilépsz a dolgozatból? Az eddigi válaszok elvesznek.')) return;
+  homeView();
+});
+screen.addEventListener('change', event => {
+  if (event.target.id !== 'topic') return;
+  topicIndex = Number(event.target.value);
+  if (page === 'home') homeView();
+});
+screen.addEventListener('submit', event => {
+  event.preventDefault();
+  if (event.target.id === 'team-form') {
+    const names = new FormData(event.target).getAll('team').map(name => name.trim()).filter(Boolean);
+    if (names.length < 2) {
+      event.target.querySelector('input').focus();
+      return;
+    }
+    beginGame(names);
+  }
+  if (event.target.id === 'exam-entry') beginExam(event.target);
+});
+screen.addEventListener('click', event => {
+  const button = event.target.closest('button[data-action]');
+  if (!button || pending) return;
+  const {action} = button.dataset;
+  const i = Number(button.dataset.i);
+  switch(action) {
+    case 'home': homeView(); break;
+    case 'solo': beginGame([]); break;
+    case 'teams': teamSetup(); break;
+    case 'map': selectStage(); break;
+    case 'stage': startStage(i); break;
+    case 'exam-demo': entry(); break;
+    case 'exam-prev': exam.i--; renderExam(); break;
+    case 'exam-next': if (exam.i + 1 === exam.items.length) reviewExam(); else {exam.i++; renderExam();} break;
+    case 'exam-goto': exam.i = i; renderExam(); break;
+    case 'send': sendExam(); break;
+    case 'pick': case 'remove': case 'reset': {
+      const practice = page === 'practice';
+      const active = practice ? game : exam;
+      const q = active.items[active.i];
+      const value = change(q,practice ? game.answer : exam.answers[exam.i],action,i);
+      if (practice) game.answer = value;
+      else exam.answers[exam.i] = value;
+      updateOptions(q,value,false);
+      break;
+    }
+    case 'check': {
+      game.mark = correct(game.items[game.i],game.answer);
+      if (game.mark) {
+        game.hits++;
+        if (game.teamNames.length && !game.played.has(game.stageIndex)) game.points[game.turn]++;
+      }
+      renderPractice();
+      break;
+    }
+    case 'practice-next':
+      if (game.teamNames.length) game.turn = (game.turn + 1) % game.teamNames.length;
+      game.i++;
+      if (game.i === game.items.length) finishStage();
+      else {game.mark = null; game.answer = null; renderPractice();}
+      break;
+  }
+});
+homeView();
+</script>
+</body>
+</html>
